@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSortUp } from '@fortawesome/free-solid-svg-icons'
+import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons'
 
 
 import Row from 'react-bootstrap/Row';
@@ -8,6 +8,18 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 
 export class Product extends Component {
+ constructor(props){
+   super(props);
+   this.handleUpVote= this.handleUpVote.bind(this)
+   this.handleDownVote= this.handleDownVote.bind(this)
+ }
+  handleUpVote(){
+    this.props.onVote(this.props.id)
+  }
+
+  handleDownVote(){
+    this.props.downVote(this.props.id)
+  }
   render() {
     return (
       <div className='mb-2 mt-3'>
@@ -19,7 +31,13 @@ export class Product extends Component {
     </Col>
         <Col md={10} sm={10}> <Card>
       <Card.Body>
-     <FontAwesomeIcon icon={faSortUp} className="text-success fa-2x" /><div className='h4'>{this.props.votes}</div>
+      
+     <FontAwesomeIcon icon={faSortUp} className="text-success fa-3x " onClick={this.handleUpVote}/>
+     <div className='h5 m-0 p-0'>
+        {this.props.votes}
+     </div>
+     <FontAwesomeIcon icon={faSortDown} className="text-danger fa-3x" onClick={this.handleDownVote} />
+       
         <Card.Title>
             <Card.Link href={this.props.url}>{this.props.title}</Card.Link>
             </Card.Title>
